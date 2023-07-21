@@ -13,19 +13,24 @@ library(stringr)
 
 # Estadisticas por pais
 ranking_by_country <- read.csv("AllTimeRankingByCountry.csv") %>% 
+  
   # Al explorar la data, se procede a limpiarla
   select(-"X") %>% 
+  
   # Se seleccionan aquellos paises que hayan ganado al menos 1 vez el titulo
   filter(Titles != 0)
 
+
 # Estadisticas por club
 ranking_by_club <- read_excel("Rankings by club.xlsx", sheet = 1)
+
 
 # Eliminar fila con NAs
 ranking_by_club <- na.omit(ranking_by_club)
 
 # Se cambian los nombres de las columnas con los caracteres de la primera fila
 colnames(ranking_by_club) <- ranking_by_club[1, ]
+
 # Se elimina la primera fila para evitar nombres duplicados
 ranking_by_club <- ranking_by_club[-1, ]
 
@@ -34,65 +39,145 @@ primera_tabla <- ranking_by_club[, 1:13]
 segunda_tabla <- ranking_by_club[,14:26]
 
 # Unir las tablas una debajo de la otra
-ranking_by_club <- rbind(primera_tabla, segunda_tabla)
+ranking_by_club <- rbind(primera_tabla, segunda_tabla) %>% 
+  mutate(Club = case_when(
+    Club == "Club Atlético de Madrid" ~ "Atletico Madrid",
+    Club == "FC Bayern München" ~ "FC Bayern",
+    Club == "Manchester City FC" ~ "Manchester City",
+    Club == "Real Madrid CF" ~ "Real Madrid", 
+    TRUE ~ Club
+  ))
 
 # Estadisticas de la Champions mas reciente del Madrid (2022)
 
 # Ataque por jugador
 attacking <- read.csv("attacking.csv") %>% 
-  select(-"position", -"offsides", -"corner_taken")
+  select(-"position", -"offsides", -"corner_taken") %>% 
+  mutate(club = case_when(
+    club == "Atlético" ~ "Atletico Madrid",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man. City" ~ "Manchester City",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))
 
 # Intentos a puerta por jugador
 attempts <- read.csv ("attempts.csv") %>%    
-  select(-"position")
+  select(-"position")%>% 
+  mutate(club = case_when(
+    club == "Atlético" ~ "Atletico Madrid",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man. City" ~ "Manchester City",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))
 
 # Defensa por jugador
 defending <- read.csv ("defending.csv") %>%    
-  select(-"position",-"clearance_attempted")
+  select(-"position",-"clearance_attempted")%>% 
+  mutate(club = case_when(
+    club == "Atlético" ~ "Atletico Madrid",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man. City" ~ "Manchester City",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))
 
 # Pases por jugador
 distributon <- read.csv ("distributon.csv") %>% 
-  select(-"position", -"cross_accuracy", -"cross_attempted", -"cross_complted", -"freekicks_taken")
+  select(-"position", -"cross_accuracy", -"cross_attempted", -"cross_complted", -"freekicks_taken")%>% 
+  mutate(club = case_when(
+    club == "Atlético" ~ "Atletico Madrid",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man. City" ~ "Manchester City",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))
 
 # Porteria 
 goalkeeping <- read.csv ("goalkeeping.csv") %>% 
-  select(-"position",-"punches.made")
+  select(-"position",-"punches.made")%>% 
+  mutate(club = case_when(
+    club == "Atlético" ~ "Atletico Madrid",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man. City" ~ "Manchester City",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))
 
 # Goles por jugador
 goals <- read.csv ("goals.csv") %>% 
-  select(-"position",-"right_foot",-"left_foot",-"headers", -"others", -"inside_area",-"outside_areas")
+  select(-"position",-"right_foot",-"left_foot",-"headers", -"others", -"inside_area",-"outside_areas")%>% 
+  mutate(club = case_when(
+    club == "Atlético" ~ "Atletico Madrid",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man. City" ~ "Manchester City",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))
 
 # Estadisticas clave por jugador
-key_stats <- read.csv("key_stats.csv")
+key_stats <- read.csv("key_stats.csv")%>% 
+  mutate(club = case_when(
+    club == "Atlético" ~ "Atletico Madrid",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man. City" ~ "Manchester City",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))
 
 # Datos de entrenadores
-CoachesAppearDetails <- read.csv ("CoachesAppearDetails.csv")                  
+Coaches_Appear_Details <- read.csv ("CoachesAppearDetails.csv") %>% 
+  mutate(Club = case_when(
+    Club == "Club Atlético de Madrid" ~ "Atletico Madrid",
+    Club == "FC Bayern München" ~ "FC Bayern",
+    Club == "Manchester City FC" ~ "Manchester City",
+    Club == "Real Madrid CF" ~ "Real Madrid", 
+    TRUE ~ Club
+  ))                 
 
 # Goleador por temporada desde 2013-2014 hasta 2022
-TopGoalScorer <- read.csv("TopGoalScorer.csv") %>% 
-  filter(X %in% c(24:34))
+Top_Goal_Scorer <- read.csv("TopGoalScorer.csv") %>% 
+  filter(X %in% c(24:34)) %>% 
+  select(-"X")%>% 
+  mutate(Club = case_when(
+    Club == "FC Bayern München" ~ "FC Bayern",
+    Club == "Real Madrid CF" ~ "Real Madrid", 
+    TRUE ~ Club
+  ))                 
+
 
 # Extraer solo los numeros de las columnas Goals y Appearances
-TopGoalScorer$Goals <- as.numeric(gsub("[^0-9]", "", TopGoalScorer$Goals))
-TopGoalScorer$Appearances <- as.numeric(gsub("[^0-9]", "", TopGoalScorer$Appearances))
+Top_Goal_Scorer$Goals <- as.numeric(gsub("[^0-9]", "", Top_Goal_Scorer$Goals))
+
+Top_Goal_Scorer$Appearances <- as.numeric(gsub("[^0-9]", "", Top_Goal_Scorer$Appearances))
 
 # Extraer los valores de Goals y Appearances de la columna Club
-TopGoalScorer$Goals <- ifelse(!is.na(str_extract(TopGoalScorer$Club, "\\d+(?=\\s*goals)")), as.numeric(str_extract(TopGoalScorer$Club, "\\d+(?=\\s*goals)")), TopGoalScorer$Goals)
-TopGoalScorer$Appearances <- ifelse(!is.na(str_extract(TopGoalScorer$Club, "\\d+(?=\\s*appearances)")), as.numeric(str_extract(TopGoalScorer$Club, "\\d+(?=\\s*appearances)")), TopGoalScorer$Appearances)
+Top_Goal_Scorer$Goals <- ifelse(!is.na(str_extract(Top_Goal_Scorer$Club, "\\d+(?=\\s*goals)")), 
+                                as.numeric(str_extract(Top_Goal_Scorer$Club, "\\d+(?=\\s*goals)")), Top_Goal_Scorer$Goals)
+
+Top_Goal_Scorer$Appearances <- ifelse(!is.na(str_extract(Top_Goal_Scorer$Club, "\\d+(?=\\s*appearances)")), 
+                                      as.numeric(str_extract(Top_Goal_Scorer$Club, "\\d+(?=\\s*appearances)")), Top_Goal_Scorer$Appearances)
 
 # Eliminar los valores de Goals y Appearances de la columna Club
-TopGoalScorer$Club <- str_replace(TopGoalScorer$Club, "\\s*\\d+\\s*goals.*", "")
+Top_Goal_Scorer$Club <- str_replace(Top_Goal_Scorer$Club, "\\s*\\d+\\s*goals.*", "")
 
 
 # Estadisticas por equipo desde 1993 hasta 2020
-ucl_stats <- read.csv("ucl_stats.csv") %>% 
-  filter(year %in% c(2014:2020))
+UCL_Stats <- read.csv("ucl_stats.csv") %>% 
+  filter(year %in% c(2014:2020))%>%
+  rename(club = "team") %>% 
+  mutate(club = case_when(
+    club == "Bayern Munich" ~ "FC Bayern",
+    club == "Barcelona" ~ "FC Barcelona", 
+    TRUE ~ club
+  ))  
 
 # Equipos que llegaron a cuartos desde 1981 hasta 2021. Tiene un error: Dice que Manchester City gano (W) en el 2021
-UCLQuarterFinals <- read.csv("UCLQuarterFinals.csv") %>% 
+UCL_Quarter_Finals <- read.csv("UCLQuarterFinals.csv") %>% 
   filter(year %in% c(2014:2021)) %>% 
   select("year", "code", "name","round","league") %>% 
-  rename(Teams = "name", country = "league")
+  rename(club = "name", country = "league")
 
 # Equipos, jugadores, goles de esos jugadores y partidos jugados con sus resultados. Va desde 2016 hasta 2022
 
@@ -103,7 +188,13 @@ UCL_16_22_players <- UCL_16_22_players %>%
   mutate(FULL_NAME = paste(ifelse(is.na(UCL_16_22_players$FIRST_NAME), "", UCL_16_22_players$FIRST_NAME),
                            ifelse(is.na(UCL_16_22_players$LAST_NAME), "", UCL_16_22_players$LAST_NAME))) %>% 
   # Seleccionar solo las columnas relevantes
-  select("PLAYER_ID", "FULL_NAME", "TEAM") 
+  select("PLAYER_ID", "FULL_NAME", "TEAM")%>% 
+  mutate(TEAM = case_when(
+    TEAM == "Atlético Madrid" ~ "Atletico Madrid",
+    TEAM == "Bayern München" ~ "FC Bayern",
+    TRUE ~ TEAM
+  ))  
+  
 
 # Leer datos de goles de la UEFA Champions League desde 2016 hasta 2022
 UCL_16_22_goals <- read_excel("UEFA Champions League 2016-2022 Data.xlsx", sheet = "goals") %>% 
@@ -119,20 +210,20 @@ UCL_16_22_matches <- read_excel("UEFA Champions League 2016-2022 Data.xlsx",
 UCL_16_22_teams <- read_excel("UEFA Champions League 2016-2022 Data.xlsx", 
                               sheet = "teams") %>% 
   # Eliminar la columna "HOME_STADIUM"
-  select(-"HOME_STADIUM")
+  select(-"HOME_STADIUM")%>% 
+  mutate(TEAM_NAME = case_when(
+    TEAM_NAME == "Atlético Madrid" ~ "Atletico Madrid",
+    TEAM_NAME == "Bayern München" ~ "FC Bayern",
+    TRUE ~ TEAM_NAME
+  )) 
 
-
-# Carga de estadisticas de jugadores desde el 2013 hasta 2020/2021
-UCL_Player_stats <- read.csv("UEFA_CL_Player_stats.csv") 
-  #sustituir NAs por 0
-UCL_Player_stats[is.na(UCL_Player_stats)] <- 0
-
-  # Creacion de tabla para elegir a que equipos vamos a utilizar:
+# Creacion de tabla para elegir a que equipos vamos a utilizar:
   # UCLQuarterFinals. Contiene desde 2014, hasta 2021. Falta 2022 y 2023
-  UCLQuarterFinals_21_22 <- UCL_16_22_matches %>% 
+  UCL_Quarter_Finals_21_22 <- UCL_16_22_matches %>% 
   filter(SEASON == "2021-2022") %>% 
-  # Obtener aquellos equipos que llegaron a cuartos de final. El partido 125 es la final. Luego hay 4 partidos 
-  # en semis. 8 partidos en cuartos. En total hay 13. 125-13=112. Pero los cuartos empiezan en el 113.
+    
+# Obtener aquellos equipos que llegaron a cuartos de final. El partido 125 es la final. Luego hay 4 partidos 
+# en semis. 8 partidos en cuartos. En total hay 13. 125-13=112. Pero los cuartos empiezan en el 113.
   filter(MATCH_ID %in% c("mt113","mt114","mt115","mt116","mt117","mt118","mt119",
                          "mt120","mt121","mt122","mt123","mt124","mt125")) %>% 
   select("MATCH_ID","SEASON","HOME_TEAM","AWAY_TEAM","HOME_TEAM_SCORE","AWAY_TEAM_SCORE") %>% 
@@ -142,59 +233,72 @@ UCL_Player_stats[is.na(UCL_Player_stats)] <- 0
 
 
 # Agregar codigos, ronda y pais a los equipos de la temporada 21-22
-UCLQuarterFinals_21_22_teams <- UCLQuarterFinals_21_22 %>% 
+UCL_Quarter_Finals_21_22 <- UCL_Quarter_Finals_21_22 %>% 
   filter(MATCH_ID %in% c("mt113","mt114","mt115","mt116",
                          "mt117","mt118","mt119","mt120")) %>% 
-  rename(Teams = HOME_TEAM) %>% 
+  rename(club = HOME_TEAM) %>% 
   select(-"AWAY_TEAM",-"MATCH_ID",-"HOME_TEAM_SCORE", -"AWAY_TEAM_SCORE") %>% 
   mutate(code = c("MAC", "BEN", "CHE", "VIL", "RMA", "BMN", "ATM","LIV"), 
          round = c("SF", "QF", "QF", "SF", "W", "QF", "QF", "RU"), 
-         country = c("England","Portugal","England","Spain", "Spain", "Germany","Spain","England")) %>% 
-  select(year, code, Teams, round, country)
+         country = c("England","Portugal","England","Spain", "Spain", "Germany","Spain","England"),
+         club = case_when(
+           club == "Atlético Madrid" ~ "Atletico Madrid",
+           TRUE ~ club)) %>% 
+  select(year, code, club, round, country)
 
 # Unir el database de UCLQuarterFinals con la temporada de UCLQuarterFinals_21_22_teams
-UCLQuarterFinals <- UCLQuarterFinals %>% 
-  rbind(UCLQuarterFinals_21_22_teams) %>% 
-  mutate(Teams = case_when(
-    Teams == "Atletico Madrid CF" ~ "Atlético Madrid",
-    Teams == "Bayern München" ~ "FC Bayern",
-    Teams == "Manchester City FC" ~ "Manchester City",
-    Teams == "Real Madrid CF" ~ "Real Madrid", 
-    TRUE ~ Teams
+UCL_Quarter_Finals <- UCL_Quarter_Finals %>% 
+  rbind(UCL_Quarter_Finals_21_22) %>% 
+  mutate(club = case_when(
+    club == "Atletico Madrid CF" ~ "Atletico Madrid",
+    club == "Bayern München" ~ "FC Bayern",
+    club == "Manchester City FC" ~ "Manchester City",
+    club == "Real Madrid CF" ~ "Real Madrid", 
+    TRUE ~ club
   ))
 
 # Falta temporada 2022-2023
 
   #cargar el excel correspondiente y adecuar la base de datos al formato de UCLQuarterFinals
 
-UCLQuarterFinals_22_23 <- read_excel("Top 16 Championes League 22 y 23.xlsx")%>% 
+UCL_Quarter_Finals_22_23 <- read_excel("Top 16 Championes League 22 y 23.xlsx")%>% 
   filter(as.numeric(Partidos_Jugados) >= 10) %>% 
-  rename(Teams = Club) %>%
+  rename(club = Club) %>%
   mutate(code = c("MAC", "INT", "RMA", "ACM", "BMN", "NAP", "BEN","CHE"), 
          round = c("W", "RU", "SF", "SF", "QF", "QF", "QF", "QF"), 
          country = c("England","Italy","Spain","Italy", "Germany", "Italy","Portugal","England"),
          year = 2023) %>%
-  select(year, code, Teams, round, country, -Partidos_Jugados, -Ganados, -Empates, -Perdidos)
+  select(year, code, club, round, country, -Partidos_Jugados, -Ganados, -Empates, -Perdidos)
 
 
 #Unir base de datos modificada de 2023 a QuarterFinals para completar los anos
 
-UCLQuarterFinals <- UCLQuarterFinals %>%
-  rbind(UCLQuarterFinals_22_23) %>%
-  mutate(Teams = case_when(
-    Teams == "Benfica" ~ "SL Benfica",
-    Teams == "Bayern" ~ "FC Bayern",
-    Teams == "Man City" ~ "Manchester City",
-    Teams == "Chelsea" ~ "Chelsea FC", 
-    TRUE ~ Teams
+UCL_Quarter_Finals <- UCL_Quarter_Finals %>%
+  rbind(UCL_Quarter_Finals_22_23) %>%
+  mutate(club = case_when(
+    club == "Benfica" ~ "SL Benfica",
+    club == "Bayern" ~ "FC Bayern",
+    club == "Man City" ~ "Manchester City",
+    club == "Chelsea" ~ "Chelsea FC", 
+    TRUE ~ club
   ))
+
+#Asegurarse que las tablas tengan sus columnas numericas en num
+ranking_by_club[, c("Pos", "Part", "Titles", "Pld", 
+                    "W", "D", "L", "F", "A", "Pts", "GD")] <- lapply(
+                      ranking_by_club[, c("Pos", "Part", "Titles", 
+                                          "Pld", "W", "D", "L", "F", 
+                                          "A", "Pts", "GD")], as.numeric)
+
+
+
 
 #Escribir las bases de datos a Excel 
 
 
 # Crear una lista de las bases de datos
 tablas <- list(
-  UCLQuarterFinals = UCLQuarterFinals,
+  UCL_Quarter_Finals = UCL_Quarter_Finals,
   attacking = attacking,
   attempts = attempts,
   defending = defending,
@@ -204,13 +308,12 @@ tablas <- list(
   key_stats = key_stats,
   ranking_by_club = ranking_by_club,
   ranking_by_country = ranking_by_country,
-  CoachesAppearDetails = CoachesAppearDetails,
-  TopGoalScorer = TopGoalScorer,
+  Coaches_Appear_Details = Coaches_Appear_Details,
+  Top_Goal_Scorer = Top_Goal_Scorer,
   UCL_16_22_goals = UCL_16_22_goals,
   UCL_16_22_matches = UCL_16_22_matches,
   UCL_16_22_players = UCL_16_22_players,
-  UCL_Player_stats = UCL_Player_stats,
-  ucl_stats = ucl_stats
+  UCL_Stats = UCL_Stats
   )
 
 # Crear un libro de trabajo
@@ -223,5 +326,10 @@ for (i in seq_along(tablas)) {
 }
 
 # Guardar a un archivo de excel
+
+setwd("C:/Users/Rafa/Documents")
+
 saveWorkbook(wb, file = "Proyecto_final_RM.xlsx")
+
+
 
