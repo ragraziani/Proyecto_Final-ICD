@@ -1,7 +1,8 @@
 # Carga de librerias
+
+library(tidyverse)
 library(dplyr)
 library(readr)
-library(ggplot2)
 library(readxl)
 library(openxlsx)
 library(stringr)
