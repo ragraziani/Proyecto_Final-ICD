@@ -1,0 +1,313 @@
+---
+title: "Informe Final"
+author: "Rafael Graziani, Freddy Melgarejo, Salvador Nesta, Anselmo Velazco"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+      number_sections: true
+      sidebar:
+        width: 200px
+    code_folding: hide
+---
+
+<style>
+  body {
+    position: relative;
+    color: black;
+  }
+  body::before {
+    content: "";
+    background-image: url("https://i.ytimg.com/vi/QOyOMKaj_kk/maxresdefault.jpg");
+    background-repeat: repeat;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rmarkdown)
+```
+
+# El Real Madrid y la Champions League: El secreto de su dominio en el fútbol Europeo
+
+<img src="https://th.bing.com/th/id/R.eefeeeb004494382f83db6036b721571?rik=g86A35RpXoYm3w&pid=ImgRaw&r=0=0" width="1000" height="450" alt="Equipo campeón UCL 2013-2014">
+
+
+## Introducción:
+
+
+> El fútbol es uno de los deportes más populares y seguidos en todo el mundo. Por su parte, la UEFA Champions League es una competición en la que participan los mejores equipos de fútbol de Europa y es considerada una de las competiciones más importantes y prestigiosas a nivel mundial. Dentro de esta competición, el Real Madrid es uno de los equipos más exitosos en la historia, habiendo ganado el trofeo en múltiples ocasiones.
+>
+>
+>El fútbol europeo ha sido testigo de la dominación del Real Madrid en la última década. Este equipo ha logrado un éxito sin precedentes en la UEFA Champions League, ganando cuatro títulos en cinco años y estableciéndose como uno de los mejores equipos de la historia del fútbol. En este informe, presentamos una investigación estadística para demostrar las razones detrás de este éxito y cómo el Real Madrid ha logrado dominar el fútbol europeo.
+>
+>
+> La razón detrás de la gran cantidad de victorias del Real Madrid en la UEFA Champions League es un tema de interés no solo para los seguidores del fútbol, sino también para los analistas deportivos y los estrategas del deporte. El estudio del éxito del Real Madrid podría proporcionar información valiosa sobre los factores que contribuyen al éxito en el fútbol y se podría aplicar en otros equipos.
+>
+>
+> Nuestra investigación se basa en el análisis de datos sobre el rendimiento del Real Madrid y otros equipos TOP de Europa como pueden ser el Barcelona, el Bayern, entre otros, durante la última década. A través de nuestro análisis estadístico, esperamos proporcionar una comprensión más profunda de las razones detrás de este éxito y ofrecer una perspectiva única sobre uno de los equipos más exitosos de la historia del fútbol. 
+>
+>    
+> Además, el análisis de las estadísticas del Real Madrid podría dar lugar a la identificación de patrones y tendencias que permitan comprender mejor el éxito del equipo en la competición; permitiendo a otros equipos analizar su propio rendimiento en la UEFA Champions League y determinar las áreas en las que podrían mejorar.
+>
+>    
+> Por lo tanto, la justificación para abordar el tema propuesto es clara y relevante, ya que proporciona una oportunidad para comprender el éxito del equipo y del fútbol en general, así como para mejorar el rendimiento de otros equipos en la competición.
+>
+> 
+> Por último, el objetivo del análisis es poder responder interrogantes como: 
+>
+> - ¿Por qué el Real Madrid gana tanto la UEFA Champions League?
+>
+> 
+> - ¿Las estadísticas del Real Madrid de los años en que ha ganado la competición, respaldan el logro del trofeo?
+>
+>  
+> - ¿El Real Madrid ha estado por encima de los otros competidores?, ¿o hay algunos equipos que según sus estadísticas, tenían que haber ganado el trofeo en vez del equipo español?
+> 
+>
+> Esperamos que este informe sea de interés para todos aquellos interesados en el fútbol y en el análisis estadístico del deporte. 
+
+
+## Metodología: 
+
+
+**DESCRIPCION DE LOS DATOS UTILIZADOS, METODOLOGIA A UTILIZAR Y JUSTIFICACION
+DE LA METODOLOGIA**
+
+
+**AQUI FALTA EXPLICAR CADA UNO DE LOS DATOS ESTADÍSTICOS QUE SE PRESENTARAN
+MÁS ABAJO**
+
+> Para dar respuesta a las interrogantes planteadas en este proyecto, se utilizará una **metodología cuantitativa**, en la cual se hará un análisis comparativo y uno estadístico. 
+>    
+>    
+> El **análisis comparativo** implica la comparación de los datos del Real Madrid con los datos de otros equipos de fútbol que han participado en la UEFA Champions League. Este análisis permitirá identificar las fortalezas y debilidades del Real Madrid en comparación con otros equipos y determinar cómo el equipo se desempeña en diferentes situaciones de la competición. Para llevar a cabo el análisis comparativo, se utilizarán datos históricos de la UEFA Champions League y se compararán los registros del Real Madrid con los de otros equipos en diferentes estadísticas, como goles marcados, posesión de balón, tiros a puerta, entre otros.
+>    
+>    
+> El **análisis estadístico** implica el uso de técnicas estadísticas para examinar los datos del Real Madrid en la UEFA Champions League y determinar patrones y tendencias en los datos. Se utilizarán diversas técnicas estadísticas para analizar los datos, como gráficas, el análisis de promedios, desviación de los datos y el análisis de correlación. Estas técnicas nos permitirán identificar las variables que tienen un mayor impacto en el éxito del Real Madrid en la competición y determinar cómo se relacionan estas variables entre sí.
+
+## Análisis: 
+
+<img src="https://th.bing.com/th/id/OIP.GiPM3OAerEhQ-SJwH9NkGQHaEK?pid=ImgDet&rs=1" width="1000" height="450" alt="Equipo campeón UCL 2013-2014">
+
+** En esta parte deben desarrollar el análisis exploratorio; cómo inspeccionaron los datos de formas diferentes, qué alternativas intentaron, justificación de las decisiones tomadas a lo largo del análisis (se recomienda utilizar un importante número de visualizaciones en esta parte). En esta sección también deben reflejar los resultados/estimaciones y la interpretación de los mismos. **
+
+
+```{r, message=FALSE, warning=FALSE}
+
+library(tidyverse) # Colección de paquetes para manipulación de datos.
+library(dplyr) # Paquete para manipulación y transformación de datos.
+library(readxl) # Paquete para leer datos de Excel.
+library(ggthemes) # Temas, escalas y geoms adicionales para ggplot2.
+library(ggplot2) # Paquete para crear visualizaciones elegantes de datos.
+library(ggrepel) # Geoms para repeler etiquetas superpuestas en ggplot2.
+library(knitr) # Motor para generar informes dinámicos con R.
+library(gganimate)# Extensión de ggplot2 para crear animaciones.
+library(reactablefmtr) # Mejora el estilo y el formato de las tablas.
+library(reactable) # Crea tablas interactivas con ordenamiento y paginación.
+library(ggsoccer) # Funciones para visualizar y explorar datos de fútbol.]
+library(stringr)
+library(reshape2)
+
+```
+
+> Para la creación de este informe se utilizó `knitr`, un motor para la generación de informes dinámicos con R que permite la integración de código R, resultados y texto en un solo documento. Esto facilita la creación de informes reproducibles y la comunicación de los análisis de datos.
+>
+>
+> En cuanto al análisis de la data de la última decada de la UEFA Champions League para responder a las interrogantes planteadas previamente, se utilizó como paquete para el manejo de los datos la librería `tidyverse`, la cual permite producir datos reproducibles y manipular datos de forma más efectiva; como complemento también se trabajó con la librería `dplyr` que se encuentra dentro de `tidyverse` y proporciona más herramientas para manipular datos estructurados.
+>
+>
+> Para poder abrir los archivos que contenían las bases de datos limpias, se necesitó la librería `readxl`. Una vez abiertas las librerías para la manipulación de datos, y la necesaria para visualizar los datos en sí, se cargaron también `ggthemes`, `ggplot2` y `ggrepel`, las cuales permiten representar gráficamente los análisis e interpretar mejor las relaciones de las estadísticas calculadas, además, se utilizó también `gganimate`, librería que ofrece la posibilidad de realizar gráficos animados para hacer que el informe sea aún más llamativo.
+>
+> Finalmente, se utilizaron librerías como `reactablefmtr` y `reactable` para mejorar el estilo y formato de las tablas en el informe. Estas librerías permiten crear tablas interactivas con opciones de ordenamiento y paginación, y ofrecen una amplia variedad de opciones para personalizar la apariencia de las tablas. Al utilizar estas librerías, se puede presentar la información de manera clara y atractiva, lo que facilita la comprensión de los resultados del análisis.
+>
+>
+> Para dar respuesta efectiva a cada una de las interrogantes que se plantean en la realización de este informe, se cargaron bases de datos las cuales contienen información detallada respecto al rendimiento de 11 equipos que han llegado al menos 3 veces a instancias de cuartos de final de la UEFA Champions League en la última decada, de forma que se pudiesen comparar las estadísticas del Real Madrid contra las estadísticas de equipos que han tenido rendimientos similares en los últimos años. Algunos de los datos estadísticos que se utilizaron en este estudio y que permitieron evaluar nuestros planteamientos a profundidad fueron 
+
+```{r}
+
+UCLQuarterFinals <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCLQuarterFinals")
+
+attacking <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "attacking")
+
+attempts <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "attempts")
+
+defending <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "defending")
+
+distributon <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "distributon")
+
+goalkeeping <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "goalkeeping")
+
+goals <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "goals")
+
+key_stats <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "key_stats")
+
+ranking_by_club <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "ranking_by_club")
+
+ranking_by_country <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "ranking_by_country")
+
+CoachesAppearDetails <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "CoachesAppearDetails")
+
+TopGoalScorer <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "TopGoalScorer")
+
+UCL_16_22_goals <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_16_22_goals")
+
+UCL_16_22_matches <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_16_22_matches")
+
+UCL_16_22_players <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_16_22_players")
+
+UCL_Player_stats <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_Player_stats")
+
+ucl_stats <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "ucl_stats")
+
+
+```
+
+```{r}
+
+ranking_by_country %>%
+  ggplot(aes(x = Country, y = Titles, fill = Country)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  geom_text(aes(label = Titles), vjust = -0.5) +
+  labs(title = "Títulos obtenidos por país en la UCL",
+       x = "País",
+       y = "Títulos obtenidos") +
+  theme_fivethirtyeight() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+
+```{r}
+
+country_abbreviations <- c(
+  "England" = "ENG",
+  "France" = "FRA",
+  "Germany" = "GER",
+  "Italy" = "ITA",
+  "Netherlands" = "NED",
+  "Portugal" = "POR",
+  "Romania" = "ROU",
+  "Scotland" = "SCO",
+  "Serbia" = "SRB",
+  "Spain" = "ESP"
+)
+
+# Agregar una nueva columna con las abreviaciones de los países
+
+ranking_by_country_abbreviated <- ranking_by_country %>%
+  mutate(CountryAbbreviation = country_abbreviations[Country])
+
+# Crear el gráfico con las etiquetas modificadas
+
+ranking_by_country_abbreviated %>%
+  ggplot(aes(x = Played, y = Titles, color = Country)) +
+  geom_point(size = 2) +
+  geom_text_repel(aes(label = paste(CountryAbbreviation, Played, sep = ":")), size = 3, force = 10) +
+  scale_x_continuous(limits = c(0, ranking_by_country %>% summarise(max(Played)) %>% pull() + 50)) +
+  labs(title = str_wrap("Relación entre partidos jugados y títulos obtenidos por país en la UEFA Champions League", width = 50),
+       x = "Partidos jugados",
+       y = "Títulos obtenidos") +
+  theme_fivethirtyeight() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+```
+
+```{r}
+
+ranking_by_club %>%
+  mutate(Pos = as.numeric(Pos)) %>%
+  filter(Pos >= 1 & Pos <= 10) %>%
+  ggplot(aes(x = Club, y = Titles)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = Titles), vjust = -0.5) +
+  theme_fivethirtyeight() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.title = element_text(hjust = 0.5, size = 14)) +
+  labs(title = "Cantidad de títulos por club",
+       x = "Club",
+       y = "Cantidad de títulos")
+
+```
+
+```{r}
+
+Filt_UCLQuarterFinals <- UCLQuarterFinals %>%
+  group_by(Teams) %>%
+  summarize(count = n_distinct(year)) %>%
+  filter(count >= 7) %>%
+  inner_join(UCLQuarterFinals, by = "Teams")
+
+```
+
+```{r}
+
+ucl_stats <- ucl_stats %>%
+  mutate(team = case_when(
+    team == "Bayern Munich" ~ "FC Bayern",
+    team == "Barcelona" ~ "FC Barcelona",
+    TRUE ~ team
+  ))
+
+```
+
+```{r}
+
+stats_top4 <- merge(Filt_UCLQuarterFinals, ucl_stats, by.x = c("Teams", "year"), by.y = c("team", "year"))
+
+# Filtrar la tabla para incluir solo los años que mencionas
+stats_top4_filtered <- stats_top4[stats_top4$year %in% c(2016, 2017, 2018),]
+
+# Crear una tabla con las estadísticas que quieres mostrar en el gráfico
+stats_top4_melted <- melt(stats_top4_filtered, id.vars = c("Teams", "year"), measure.vars = c("goals_scored", "goals_conceded", "gd"))
+
+# Crear el gráfico de barras
+ggplot(stats_top4_melted, aes(x = Teams, y = value, fill = variable)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~year) +
+  geom_text(aes(label = value), position = position_dodge(width = 0.9), vjust = -0.5) +
+  labs(x = "Equipo", y = "Valor", fill = "Estadística") +
+  theme_fivethirtyeight() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(expand = expansion(mult = c(0.1, 0.1)))
+
+```
+
+
+## Conclusión: 
+
+** Qué aprendieron de los datos, cuáles fueron los principales hallazgos, recomendaciones, limitaciones.
+Nota: en la parte del análisis más allá de las visualizaciones, resultados o estimaciones finales es importante reflejar el proceso completo del análisis. Imaginenlo como un guía (limpia, por supuesto) del proceso que los llevó a las visualizaciones y resultados finales. Tan importante como los resultados finales es ver cómo llegaron allí! **
+
+> El Real Madrid ha dominado el fútbol europeo, específicamente la UEFA Champions League, en la última década debido a una combinación de factores. En primer lugar, el equipo ha sido capaz de atraer y retener a algunos de los mejores jugadores del mundo, lo que le ha permitido contar con una plantilla de gran calidad. Además, el Real Madrid ha contado con entrenadores de primer nivel que han sido capaces de desarrollar estrategias efectivas y adaptarse a diferentes situaciones y oponentes.
+>
+>
+> Otro factor importante ha sido la capacidad del equipo para mantener un alto nivel de juego en momentos clave. El Real Madrid ha demostrado una gran capacidad para superar situaciones adversas y lograr victorias importantes en partidos decisivos. Esto se ha traducido en un gran éxito en la UEFA Champions League, donde el equipo ha logrado ganar varios títulos en la última década.
+>
+>
+> En resumen, el dominio del Real Madrid en la UEFA Champions League en la última década se debe a una combinación de factores, incluyendo la calidad de su plantilla, la habilidad de sus entrenadores y su capacidad para mantener un alto nivel de juego en momentos clave.
+
+## Recursos empleados:
+
+- https://www.kaggle.com/datasets/basharalkuwaiti/champions-league-era-stats?select=TopGoalScorer.csv
+- https://www.kaggle.com/datasets/sarangpurandare/uefa-champions-league-player-statistics
+- https://www.kaggle.com/datasets/johnharshith/uefa-champions-league-quarter-finals-since-1980
+- https://www.kaggle.com/datasets/cbxkgl/uefa-champions-league-2016-2022-data
+- https://www.kaggle.com/datasets/bakar31/ucl-statistics
+- https://www.kaggle.com/code/bakar31/ucl-stats-analysis
+- https://www.kaggle.com/datasets/azminetoushikwasi/ucl-202122-uefa-champions-league
+- https://www.kaggle.com/datasets/elvinagammed/the-champions-league?resource=download
+- https://www.kaggle.com/code/elvinagammed/starter-the-champions-league-89f032cd-3/input
