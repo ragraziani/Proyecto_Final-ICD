@@ -350,8 +350,9 @@ ggplot(Stats_Top_3_Melted[Stats_Top_3_Melted$variable == "avg_goals_conceded",],
    ylim(0,3) +
    ggtitle("Average Goals Conceded per Match by Club and Year")
 
-```
+reactable(Stats_Top_3_Filtered)
 
+```
 
 <table>
   <tr>
@@ -374,18 +375,90 @@ ggplot(Stats_Top_3_Melted[Stats_Top_3_Melted$variable == "avg_goals_conceded",],
 >
 > Al visualizar las tablas con los resultados del Real Madrid en la temporada 2021-2022, podremos entender mejor cómo el equipo logró ganar el título más reciente de la Champions League. Esto nos permitirá hacer conexiones con nuestro análisis anterior y ver cómo el éxito del Real Madrid en el torneo ha evolucionado a lo largo de los años.
 
+```{r}
+
+UCL_16_22_matches <- read_excel("UEFA Champions League 2016-2022 Data.xlsx", 
+                                sheet = "matches") %>% 
+  select(-"ATTENDANCE", -"PENALTY_SHOOT_OUT")
+
+Matches_Away <- UCL_16_22_matches%>% 
+  filter(SEASON == "2021-2022",
+         AWAY_TEAM == "Real Madrid")
+
+UCL_16_22_matches <- UCL_16_22_matches %>% 
+  filter(SEASON == "2021-2022",
+         HOME_TEAM == "Real Madrid")
+
+UCL_16_22_matches <- rbind(UCL_16_22_matches, Matches_Away)
+
+UCL_16_22_matches$DATE <- substr(UCL_16_22_matches$DATE_TIME, 1, 9)
+
+UCL_16_22_matches$DATE <- as.Date(UCL_16_22_matches$DATE, format = "%d-%b-%y")
+UCL_16_22_matches <- UCL_16_22_matches %>% arrange(DATE)
+
+UCL_16_22_matches <- UCL_16_22_matches %>% 
+  select(-"DATE_TIME", -"MATCH_ID")
+
+reactable(UCL_16_22_matches, filterable = TRUE, minRows = 10)
+
+
+```
+
+> De esta tabla, se pueden recopilar datos interesantes en la adquisición del último trofeo de Champions League del Real Madrid. Dada esta tabla, se puede observar que el Real Madrid tuvo un desempeño impresionante en la temporada 2021-2022. Ganaron 9 de los 13 partidos que jugaron, empatando 0 y perdiendo solo 4. En total, marcaron 27 goles y recibieron 14. 
+>
+>
+> Cuando jugaron como locales en el Santiago Bernabéu, el Real Madrid ganó 4 de los 6 partidos, empatando 0 y perdiendo solo 2. En total, marcaron 11 goles y recibieron 7. Cuando jugaron como visitantes, el Real Madrid ganó 5 de los 7 partidos, empatando 0 y perdiendo solo 2. En total, marcaron 16 goles y recibieron 10.
+>
+>
+> En resumen, el Real Madrid tuvo un desempeño impresionante en la temporada 2021-2022, ganando la mayoría de sus partidos tanto como local como visitante. También lograron remontar en algunos partidos importantes y demostraron su habilidad para marcar goles y defender su portería.
+
+<img src="https://th.bing.com/th/id/OIP.Jf9uAQVRkhf8Ezt1yaHBEwHaEK?pid=ImgDet&rs=1" width="1000" height="450">
+
 ## Conclusión: 
 
-** Qué aprendieron de los datos, cuáles fueron los principales hallazgos, recomendaciones, limitaciones.
-Nota: en la parte del análisis más allá de las visualizaciones, resultados o estimaciones finales es importante reflejar el proceso completo del análisis. Imaginenlo como un guía (limpia, por supuesto) del proceso que los llevó a las visualizaciones y resultados finales. Tan importante como los resultados finales es ver cómo llegaron allí! **
-
-> El Real Madrid ha dominado el fútbol europeo, específicamente la UEFA Champions League, en la última década debido a una combinación de factores. En primer lugar, el equipo ha sido capaz de atraer y retener a algunos de los mejores jugadores del mundo, lo que le ha permitido contar con una plantilla de gran calidad. Además, el Real Madrid ha contado con entrenadores de primer nivel que han sido capaces de desarrollar estrategias efectivas y adaptarse a diferentes situaciones y oponentes.
+> El objetivo de este informe era investigar las razones detrás del éxito del Real Madrid en la UEFA Champions League, una de las competiciones de fútbol más importantes y prestigiosas del mundo. Para ello, se utilizó una metodología cuantitativa que consistió en el análisis comparativo y estadístico de los datos del Real Madrid y otros equipos de fútbol que han participado en el torneo en la última década. Se utilizaron diversas fuentes de datos, librerías y técnicas para manipular, visualizar y analizar los datos, como knitr, tidyverse, ggplot2, reactable, entre otras. Se presentaron tablas, gráficas y textos explicativos para comunicar los resultados del análisis.
 >
 >
-> Otro factor importante ha sido la capacidad del equipo para mantener un alto nivel de juego en momentos clave. El Real Madrid ha demostrado una gran capacidad para superar situaciones adversas y lograr victorias importantes en partidos decisivos. Esto se ha traducido en un gran éxito en la UEFA Champions League, donde el equipo ha logrado ganar varios títulos en la última década.
+> Los principales hallazgos del informe fueron los siguientes:
+> 
+>
+> El Real Madrid ha sido el equipo más exitoso en la historia de la Champions League, habiendo ganado 14 títulos en total y 5 en la última década.
 >
 >
-> En resumen, el dominio del Real Madrid en la UEFA Champions League en la última década se debe a una combinación de factores, incluyendo la calidad de su plantilla, la habilidad de sus entrenadores y su capacidad para mantener un alto nivel de juego en momentos clave.
+> El Real Madrid ha superado a otros equipos de fútbol europeos en cuanto a goles anotados y recibidos por partido, lo que refleja su capacidad ofensiva y defensiva.
+>
+>
+> El Real Madrid ha demostrado una gran capacidad para superar situaciones adversas y lograr victorias importantes en partidos decisivos, lo que le ha permitido avanzar a través de las diferentes etapas del torneo y ganar el título.
+>
+>
+> El Real Madrid ha contado con una plantilla de gran calidad, compuesta por algunos de los mejores jugadores del mundo, así como con entrenadores de primer nivel que han sido capaces de desarrollar estrategias efectivas y adaptarse a diferentes situaciones y oponentes.
+>
+>
+> Algunas recomendaciones que se pueden derivar de este informe son las siguientes:
+>
+>
+> Para los equipos que quieran competir con el Real Madrid o aspirar a ganar la Champions League, es importante contar con una plantilla de jugadores talentosos y experimentados, así como con un entrenador capaz de diseñar e implementar un plan de juego adecuado para cada partido.
+>
+>
+> Para los equipos que quieran mejorar su rendimiento en la Champions League, es importante analizar sus propias estadísticas y las de sus rivales, identificar sus fortalezas y debilidades, y determinar las áreas en las que podrían mejorar.
+>
+>
+> Para los aficionados al fútbol y al análisis estadístico del deporte, es interesante seguir el desarrollo de la Champions League y observar cómo el Real Madrid y otros equipos evolucionan a lo largo del torneo. También es recomendable utilizar herramientas como knitr, tidyverse, ggplot2, reactable, entre otras, para crear informes dinámicos e interactivos que permitan comunicar los resultados del análisis de forma clara y atractiva.
+>
+>
+> Algunas limitaciones que se pueden reconocer en este informe son las siguientes:
+>
+>
+> El informe se basa en datos históricos de la Champions League y no toma en cuenta otros factores que podrían influir en el éxito del Real Madrid o de otros equipos, como el estado físico o mental de los jugadores, las condiciones climáticas o ambientales de los partidos, o las decisiones arbitrales.
+>
+>
+> El informe se enfoca en el análisis cuantitativo de los datos y no profundiza en el análisis cualitativo o interpretativo de los mismos. Por ejemplo, no se explora el estilo o la filosofía de juego del Real Madrid o de otros equipos, ni se analiza el impacto social o cultural que tiene el éxito del Real Madrid o de otros equipos en sus respectivos países o regiones.
+>
+>
+> El informe se limita a comparar al Real Madrid con algunos equipos seleccionados según un criterio establecido previamente. Sin embargo, hay otros equipos que también han participado en la Champions League y que podrían ofrecer datos interesantes o relevantes para el análisis. Por ejemplo, se podría comparar al Real Madrid con equipos que han sido sus rivales históricos o que han tenido un desempeño destacado en alguna temporada.
+>
+>
+> Esperamos que este informe haya sido de su interés y le haya ayudado a comprender mejor el éxito del Real Madrid en la UEFA Champions League.
 
 ## Recursos empleados:
 
