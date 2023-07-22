@@ -203,8 +203,18 @@ UCL_16_22_goals <- read_excel("UEFA Champions League 2016-2022 Data.xlsx", sheet
 
 # Leer datos de partidos de la UEFA Champions League desde 2016 hasta 2022
 UCL_16_22_matches <- read_excel("UEFA Champions League 2016-2022 Data.xlsx", 
-                                sheet = "matches") %>% 
-  select(-"DATE_TIME", -"STADIUM",-"ATTENDANCE")
+                                sheet = "matches")
+#Modificar la columna de fechas y crear una nueva con el fin de poder organizarlas 
+UCL_16_22_matches$DATE <- substr(UCL_16_22_matches$DATE_TIME, 1, 9)
+
+UCL_16_22_matches$DATE <- as.Date(UCL_16_22_matches$DATE, 
+                                  format = "%d-%b-%y")
+
+UCL_16_22_matches <- UCL_16_22_matches %>% 
+  arrange(DATE)
+
+UCL_16_22_matches <- UCL_16_22_matches %>% 
+    select(-"DATE_TIME", -"STADIUM",-"ATTENDANCE")
 
 # Leer datos de equipos de la UEFA Champions League desde 2016 hasta 2022
 UCL_16_22_teams <- read_excel("UEFA Champions League 2016-2022 Data.xlsx", 
@@ -327,7 +337,7 @@ for (i in seq_along(tablas)) {
 
 # Guardar a un archivo de excel
 
-setwd("C:/Users/Rafa/Documents")
+setwd("C:/Users/Documents")
 
 saveWorkbook(wb, file = "PF_BD_RMarkdown.xlsx")
 
