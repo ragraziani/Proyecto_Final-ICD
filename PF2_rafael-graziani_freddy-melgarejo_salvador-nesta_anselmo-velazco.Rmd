@@ -79,16 +79,12 @@ library(rmarkdown)
 >
 > Esperamos que este informe sea de interés para todos aquellos interesados en el fútbol y en el análisis estadístico del deporte. 
 
+<img src="https://files.winsports.co/assets/public/styles/large/public/2023-06/escudo_realmadrid_afp_hori.jpg.webp?itok=JWmc6L2c" width="1000" height="450" alt="Equipo campeón UCL 2013-2014">
+<p><strong>ADN Real Madrid: ¿A qué hace referencia? ¿si existe?</strong><br>
+27 Junio. 2023 - 10:12 am<br>
+Por: Iván Alba - @hableman</p>
 
 ## Metodología: 
-
-
-**DESCRIPCION DE LOS DATOS UTILIZADOS, METODOLOGIA A UTILIZAR Y JUSTIFICACION
-DE LA METODOLOGIA**
-
-
-**AQUI FALTA EXPLICAR CADA UNO DE LOS DATOS ESTADÍSTICOS QUE SE PRESENTARAN
-MÁS ABAJO**
 
 > Para dar respuesta a las interrogantes planteadas en este proyecto, se utilizará una **metodología cuantitativa**, en la cual se hará un análisis comparativo y uno estadístico. 
 >    
@@ -97,12 +93,21 @@ MÁS ABAJO**
 >    
 >    
 > El **análisis estadístico** implica el uso de técnicas estadísticas para examinar los datos del Real Madrid en la UEFA Champions League y determinar patrones y tendencias en los datos. Se utilizarán diversas técnicas estadísticas para analizar los datos, como gráficas, el análisis de promedios, desviación de los datos y el análisis de correlación. Estas técnicas nos permitirán identificar las variables que tienen un mayor impacto en el éxito del Real Madrid en la competición y determinar cómo se relacionan estas variables entre sí.
+>
+> Para el análisis de las interrogantes planteadas se requerirá el uso de datos futbolísticos que reportan las estadísticas de cada equipo y en algunas ocasiones de los jugadores de los mismos. Es nuestro deber antes de comenzar con las visualizaciones de las gráficas, ayudar al lector a entender un poco los conceptos con los cuales se estarán trabajando. Entre estos, podemos mencionar: 
+>
+>
+> - Goles por partidos: se refieren al promedio de goles que marca un equipo por cada partido que juega. Este dato refleja la capacidad ofensiva de un equipo y su eficacia a la hora de aprovechar las oportunidades de gol. <br><br>
+> - Tiros, tiros a puerta y tiros fuera del objetivo:  es el número de veces que un equipo dispara bien sea fuera o dentro del arco rival con intención de marcar gol. Estos datos ayudan a identificar el nivel de presión y peligro que genera un equipo sobre el contrario y su capacidad para crear ocasiones de gol. <br><br>
+> - Total de pases y pases completados: número de veces que un equipo logra conectar un pase con éxito a un compañero. Este concepto refleja el nivel de control del balón que tiene un equipo y su capacidad para mantener el ritmo y la fluidez del juego. <br><br>
+> - Posesión del balón: Es el porcentaje de tiempo que un equipo tiene el balón en su poder durante un partido. Refleja el nivel de dominio e iniciativa que tiene un equipo sobre el juego y su capacidad para imponer su estilo y estrategia. <br><br>
+> - Faltas cometidas y recibidas: es la cantidad de ocasiones en la que un equipo infringe o sufre una infracción por parte del contrario. Indica el nivel de agresividad y contacto físico que tiene un equipo y su capacidad para imponerse o resistir la presión del rival. <br><br>
+> - Dribles: veces en la que un jugador logra superar a un rival con el balón en su poder. Este dato indica el nivel de habilidad técnica y creatividad que tiene un jugador y su capacidad para generar situaciones de peligro y desequilibrio en el juego.<br><br>
+> - Salvadas: es la cantidad de veces en que un portero logra detener un disparo rival y evitar que entre en la portería. Muestra el nivel de seguridad y confianza que tiene un equipo en su guardameta y su capacidad para resistir la presión del ataque rival.
 
 ## Análisis: 
 
-<img src="https://th.bing.com/th/id/OIP.GiPM3OAerEhQ-SJwH9NkGQHaEK?pid=ImgDet&rs=1" width="1000" height="450" alt="Equipo campeón UCL 2013-2014">
-
-** En esta parte deben desarrollar el análisis exploratorio; cómo inspeccionaron los datos de formas diferentes, qué alternativas intentaron, justificación de las decisiones tomadas a lo largo del análisis (se recomienda utilizar un importante número de visualizaciones en esta parte). En esta sección también deben reflejar los resultados/estimaciones y la interpretación de los mismos. **
+<img src="https://images.news18.com/ibnlive/uploads/2020/08/1597242806_champions-league-trophy.png" width="1000" height="450" alt="Equipo campeón UCL 2013-2014">
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -134,61 +139,78 @@ library(reshape2)
 > Finalmente, se utilizaron librerías como `reactablefmtr` y `reactable` para mejorar el estilo y formato de las tablas en el informe. Estas librerías permiten crear tablas interactivas con opciones de ordenamiento y paginación, y ofrecen una amplia variedad de opciones para personalizar la apariencia de las tablas. Al utilizar estas librerías, se puede presentar la información de manera clara y atractiva, lo que facilita la comprensión de los resultados del análisis.
 >
 >
-> Para dar respuesta efectiva a cada una de las interrogantes que se plantean en la realización de este informe, se cargaron bases de datos las cuales contienen información detallada respecto al rendimiento de 11 equipos que han llegado al menos 3 veces a instancias de cuartos de final de la UEFA Champions League en la última decada, de forma que se pudiesen comparar las estadísticas del Real Madrid contra las estadísticas de equipos que han tenido rendimientos similares en los últimos años. Algunos de los datos estadísticos que se utilizaron en este estudio y que permitieron evaluar nuestros planteamientos a profundidad fueron 
+> Para dar respuesta efectiva a cada una de las interrogantes que se plantean en la realización de este informe, se cargaron bases de datos las cuales contienen información detallada respecto al rendimiento de los equipos que han participado en la UEFA Champions League en la úlitma decada.
+
 
 ```{r}
 
-UCLQuarterFinals <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCLQuarterFinals")
+UCL_Quarter_Finals <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "UCL_Quarter_Finals")
 
-attacking <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "attacking")
+attacking <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "attacking")
 
-attempts <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "attempts")
+attempts <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "attempts")
 
-defending <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "defending")
+defending <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "defending")
 
-distributon <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "distributon")
+distributon <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "distributon")
 
-goalkeeping <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "goalkeeping")
+goalkeeping <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "goalkeeping")
 
-goals <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "goals")
+goals <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "goals")
 
-key_stats <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "key_stats")
+key_stats <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "key_stats")
 
-ranking_by_club <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "ranking_by_club")
+ranking_by_club <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "ranking_by_club")
 
-ranking_by_country <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "ranking_by_country")
+ranking_by_country <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "ranking_by_country")
 
-CoachesAppearDetails <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "CoachesAppearDetails")
+Coaches_Appear_Details <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "Coaches_Appear_Details")
 
-TopGoalScorer <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "TopGoalScorer")
+Top_Goal_Scorer <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "Top_Goal_Scorer")
 
-UCL_16_22_goals <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_16_22_goals")
+UCL_16_22_goals <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "UCL_16_22_goals")
 
-UCL_16_22_matches <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_16_22_matches")
+UCL_16_22_matches <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "UCL_16_22_matches")
 
-UCL_16_22_players <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_16_22_players")
+UCL_16_22_players <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "UCL_16_22_players")
 
-UCL_Player_stats <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "UCL_Player_stats")
-
-ucl_stats <- read_excel("C:/Users/ansel/OneDrive/Documents/Proyecto_Final/Proyecto_final_RM.xlsx", sheet = "ucl_stats")
+UCL_Stats <- read_excel("PF_BD_RMarkdown.xlsx", sheet = "UCL_Stats")
 
 
 ```
+
+> España es un país con una larga y exitosa historia en el fútbol. Sus equipos han ganado numerosos títulos nacionales e internacionales, y su selección nacional ha sido campeona del mundo y de Europa. Uno de los torneos en los que España ha demostrado su superioridad es la Liga de Campeones de la UEFA, más conocida como la Champions League.
+>
+>
+> La Champions League es uno de los torneos de fútbol más prestigiosos del mundo. Equipos de toda Europa compiten por el título, pero hay un país que ha demostrado ser especialmente exitoso en este torneo: España. Los equipos españoles han ganado un impresionante número de títulos de la Champions League, superando a cualquier otro país en la historia del torneo.
+
 
 ```{r}
 
 ranking_by_country %>%
-  ggplot(aes(x = Country, y = Titles, fill = Country)) +
+  ggplot(aes(x = reorder(Country, -Titles), y = Titles, fill = Country)) +
   geom_bar(stat = "identity", show.legend = FALSE) +
   geom_text(aes(label = Titles), vjust = -0.5) +
-  labs(title = "Títulos obtenidos por país en la UCL",
-       x = "País",
-       y = "Títulos obtenidos") +
-  theme_fivethirtyeight() +
-  theme(plot.title = element_text(hjust = 0.5))
+  labs(title = "UCL Titles obtained by country",
+       x = "Country",
+       y = "Obtained titles") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylim(0, 20)
 
 ```
 
+
+> Hay una relación interesante entre la cantidad de títulos obtenidos por países y la cantidad de partidos que han jugado.
+>
+>
+> Una posible explicación para este éxito es que España normalmente es uno de los países que más cupos directos tiene para entrar en la competencia. Esto significa que los equipos españoles tienen más oportunidades de participar en el torneo y, por lo tanto, más oportunidades de ganar.
+>
+>
+> Además, debido a que los equipos españoles tienen más oportunidades de participar en el torneo, también han jugado muchos más partidos que los equipos de otros países. Esto les ha dado más experiencia y práctica en el torneo, lo que podría haber contribuido a su éxito.
+>
+>
+> Es claro que existe una relación entre la cantidad de títulos obtenidos por países en la Champions League y la cantidad de partidos que han jugado. En el caso de España, su éxito en el torneo podría deberse en parte a que tiene más cupos directos para entrar en la competencia y, por lo tanto, ha jugado más partidos que otros países.
 
 ```{r}
 
@@ -207,85 +229,150 @@ country_abbreviations <- c(
 
 # Agregar una nueva columna con las abreviaciones de los países
 
-ranking_by_country_abbreviated <- ranking_by_country %>%
-  mutate(CountryAbbreviation = country_abbreviations[Country])
+ranking_by_country <- ranking_by_country %>%
+  mutate(Abb = country_abbreviations[Country]) %>%
+  select(Abb, everything())
 
 # Crear el gráfico con las etiquetas modificadas
 
-ranking_by_country_abbreviated %>%
+ranking_by_country %>%
   ggplot(aes(x = Played, y = Titles, color = Country)) +
   geom_point(size = 2) +
-  geom_text_repel(aes(label = paste(CountryAbbreviation, Played, sep = ":")), size = 3, force = 10) +
+  geom_text_repel(aes(label = paste(Abb, Played, sep = ":")), size = 3, force = 10) +
   scale_x_continuous(limits = c(0, ranking_by_country %>% summarise(max(Played)) %>% pull() + 50)) +
-  labs(title = str_wrap("Relación entre partidos jugados y títulos obtenidos por país en la UEFA Champions League", width = 50),
-       x = "Partidos jugados",
-       y = "Títulos obtenidos") +
-  theme_fivethirtyeight() +
+  labs(title = str_wrap("Relationship between games played and title obtained by country in the UCL", width = 50),
+       x = "Games played",
+       y = "Titles obtained") +
+  theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5))
 
-
 ```
+
+> La razón principal de este éxito es el Real Madrid. Este equipo ha ganado un impresionante número de títulos de la Champions League, superando a cualquier otro equipo en la historia del torneo. Su dominio en el torneo es indiscutible, y su legado es algo digno de admiración. Cabe destacar que desde el cambio de formato de la competición, el Real Madrid ha ganado 8 títulos de la Champions League. Sin embargo, si sumamos todos los años desde que se creó la Liga de Campeones, el Real Madrid acumula un impresionante total de 14 títulos. Esto demuestra que el Real Madrid es un equipo representativo y exitoso en la historia de la Champions League.
 
 ```{r}
 
 ranking_by_club %>%
-  mutate(Pos = as.numeric(Pos)) %>%
-  filter(Pos >= 1 & Pos <= 10) %>%
-  ggplot(aes(x = Club, y = Titles)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
+  filter(Pos >= 1 & Pos <= 5) %>%
+  ggplot(aes(x = reorder(Club, -Titles), y = Titles)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
   geom_text(aes(label = Titles), vjust = -0.5) +
-  theme_fivethirtyeight() +
+  scale_y_continuous(limits = c(0, 10)) +
+  theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         plot.title = element_text(hjust = 0.5, size = 14)) +
-  labs(title = "Cantidad de títulos por club",
+  labs(title = "Numbers of titles by club",
        x = "Club",
-       y = "Cantidad de títulos")
+       y = "Number of titles")
 
 ```
 
-```{r}
+> Además de comparar el número de títulos de la Champions League, establecimos un criterio para comparar a los equipos que han estado más cerca de llegar a la final en los últimos 10 años. Este criterio estableció que se filtrasen aquellos equipos que hayan llegado por lo menos 7 veces a las instancias de cuartos de final en la última decada. Como resultado de este filtro se obtuvieron: Real Madrid, FC Barcelona, FC Bayern y Manchester City.
+>
+>
+> A pesar de haber utilizado la última decada como criterio de selección de los equipos a comparar, en las siguientes gráficas se analizan las 5 temporadas en las que el Real Madrid ganó 4 veces la competición, siendo estas: 2013-2014 ; 2015-2016 ; 2016-2017 ; 2017-2018. Es importante resaltar que, para este análisis, se ha discriminado al Manchester City a pesar de cumplir con el criterio previamente establecido, ya que no clasificó a cuartos de final en 3 de esas 5 temporadas.
 
-Filt_UCLQuarterFinals <- UCLQuarterFinals %>%
-  group_by(Teams) %>%
+> Para visualizar el desempeño de estos equipos durante estas temporadas gloriosas del Real Madrid, podemos calcular los promedios de los goles anotados por partido y los goles recibidos por partido. Un promedio simple se calcula sumando todos los valores y dividiéndolos entre el número total de valores. En este caso, se sumarían todos los goles anotados y recibidos por cada equipo durante estas temporadas y se dividirían entre el número total de partidos jugados.
+>
+>
+> Se decidió utilizar un promedio simple en lugar de un promedio ponderado porque es una medida más fácil de calcular y entender. Además, en este caso, todos los partidos tienen la misma importancia, por lo que no es necesario asignar pesos muestrales a cada partido. De esta manera, podemos obtener una medida clara y sencilla del desempeño de cada equipo en cuanto a goles anotados y recibidos.
+>
+>
+> Al visualizar estos promedios, podremos ver cómo se comparan el Real Madrid, FC Barcelona y FC Bayern entre sí en cuanto a goles anotados y recibidos durante estas temporadas. Esto nos dará una idea más clara de su desempeño en el torneo y nos permitirá hacer comparaciones más precisas.
+
+```{r, message=FALSE, warning=FALSE}
+
+Filt_UCL_Quarter_Finals <- UCL_Quarter_Finals %>%
+  group_by(club) %>%
   summarize(count = n_distinct(year)) %>%
   filter(count >= 7) %>%
-  inner_join(UCLQuarterFinals, by = "Teams")
+  inner_join(UCL_Quarter_Finals, by = "club") %>%
+  filter(country %in% c("Spain", "Germany"))
 
 ```
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 
-ucl_stats <- ucl_stats %>%
-  mutate(team = case_when(
-    team == "Bayern Munich" ~ "FC Bayern",
-    team == "Barcelona" ~ "FC Barcelona",
-    TRUE ~ team
-  ))
-
-```
-
-```{r}
-
-stats_top4 <- merge(Filt_UCLQuarterFinals, ucl_stats, by.x = c("Teams", "year"), by.y = c("team", "year"))
+Stats_Top_3 <- merge(Filt_UCL_Quarter_Finals, UCL_Stats, by.x = c("club", "year"), by.y = c("club", "year"))
 
 # Filtrar la tabla para incluir solo los años que mencionas
-stats_top4_filtered <- stats_top4[stats_top4$year %in% c(2016, 2017, 2018),]
+Stats_Top_3_Filtered <- Stats_Top_3 %>%
+  filter(year %in% c(2014, 2015, 2016, 2017, 2018))
 
-# Crear una tabla con las estadísticas que quieres mostrar en el gráfico
-stats_top4_melted <- melt(stats_top4_filtered, id.vars = c("Teams", "year"), measure.vars = c("goals_scored", "goals_conceded", "gd"))
+# Agrupar el data frame por club y año
+Stats_Top_3_Filtered <- Stats_Top_3_Filtered %>%
+  group_by(club, year)
 
-# Crear el gráfico de barras
-ggplot(stats_top4_melted, aes(x = Teams, y = value, fill = variable)) +
+# Calcular el promedio simple de goles anotados y recibidos por partido
+Stats_Top_3_Filtered <- Stats_Top_3_Filtered %>%
+  summarize(avg_goals_scored = goals_scored / match_played,
+            avg_goals_conceded = goals_conceded / match_played)
+
+# Crear una tabla con las estadísticas que quieres mostrar en los gráficos
+Stats_Top_3_Melted <- melt(Stats_Top_3_Filtered, id.vars = c("club", "year"), measure.vars = c("avg_goals_scored", "avg_goals_conceded"))
+
+# Filtrar el data frame UCL_Stats para incluir solo los clubes que tienen datos para los años 2014 a 2018
+UCL_Stats_Filtered <- UCL_Stats %>%
+  filter(year %in% c(2014, 2015, 2016, 2017, 2018))
+
+# Agrupar el data frame resultante por year
+UCL_Stats_Filtered <- UCL_Stats_Filtered %>%
+  group_by(year)
+
+# Calcular el promedio simple de goles anotados y recibidos por partido para cada año
+UCL_Stats_Filtered <- UCL_Stats_Filtered %>%
+  summarize(avg_goals_scored = mean(goals_scored / match_played),
+            avg_goals_conceded = mean(goals_conceded / match_played))
+
+# Crear el primer gráfico de barras (promedio simple de goles anotados por partido)
+ggplot(Stats_Top_3_Melted[Stats_Top_3_Melted$variable == "avg_goals_scored",], aes(x = club, y = value, fill = variable)) +
   geom_col(position = "dodge") +
   facet_wrap(~year) +
-  geom_text(aes(label = value), position = position_dodge(width = 0.9), vjust = -0.5) +
-  labs(x = "Equipo", y = "Valor", fill = "Estadística") +
-  theme_fivethirtyeight() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_y_continuous(expand = expansion(mult = c(0.1, 0.1)))
+  geom_text(aes(label = round(value,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+  geom_hline(data=UCL_Stats_Filtered, aes(yintercept=avg_goals_scored), linetype="dashed", color="red") + # Agregamos una línea horizontal para el promedio simple de goles anotados por partido
+   labs(x="Club", y="Average goals scored per match", fill="Statistic") +
+   theme_minimal() +
+   theme(axis.text.x = element_text(angle = 75, hjust = 1)) +
+   scale_y_continuous(expand = expansion(mult = c(0.1,0.1))) +
+   ylim(0,5) +
+   ggtitle("Average Goals Scored per Match by Club and Year")
+
+# Crear el segundo gráfico de barras (promedio simple de goles recibidos por partido)
+ggplot(Stats_Top_3_Melted[Stats_Top_3_Melted$variable == "avg_goals_conceded",], aes(x=club,y=value,fill=variable)) +
+   geom_col(position="dodge") +
+   facet_wrap(~year) +
+   geom_text(aes(label=round(value,2)), position=position_dodge(width=0.9), vjust=-0.5) +
+   geom_hline(data=UCL_Stats_Filtered,aes(yintercept=avg_goals_conceded), linetype="dashed", color="red") + # Agregamos una línea horizontal para el promedio simple de goles recibidos por partido
+   labs(x="Club", y="Average goals conceded per match", fill="Statistic") +
+   theme_minimal() +
+   theme(axis.text.x = element_text(angle = 75,hjust=1)) +
+   scale_y_continuous(expand=expansion(mult=c(0.1,0.1))) +
+   ylim(0,3) +
+   ggtitle("Average Goals Conceded per Match by Club and Year")
 
 ```
 
+
+<table>
+  <tr>
+    <td><img src="https://www.tecnopasion.com/wp-content/uploads/2018/04/madrid-bayern.jpg" width="500" height="225"></td>
+    <td><img src="https://th.bing.com/th/id/R.feafdd040c531c547dda0cc88185135a?rik=civCf7bCKwyOCg&riu=http%3a%2f%2f4.bp.blogspot.com%2f-6EGJI1RZ6_4%2fTuLgHgB8unI%2fAAAAAAAAAkA%2fNSnMLXGsLJE%2fs1600%2fversus-real-madrid-vs-barcelona.jpg&ehk=W7Xl3PGuZd6u5dYZCvyZ0ZHQ67ITBjmIRFQaPGhBj50%3d&risl=&pid=ImgRaw&r=0" width="500" height="225"></td>
+  </tr>
+</table>
+
+
+> Tomando en cuenta que el Madrid ganó la competición en todas las temporadas menos en la 2014-2015, la cual ganó el Barcelona, en estas gráficas comparativas se puede observar que existe una estrecha relación entre el promedio de goles anotados y el promedio de goles recibidos y la capacidad para obtener el título de campeón, sin embargo, pudimos notar que en temporadas como la del 2017 y la del 2018 el Barcelona tuvo mejores promedios de goles recibidos, y en la temporada del 2016 el FC Bayern tuvo mejor promedio de goles anotados. Ya habiendo realizado este análisis podemos decir que el Real Madrid obtiene estadísticas acordes a sus títulos ganados en la mayoría de los casos a excepción de algunas temporadas en las cuales sus promedios fueron ligeramente menos favorables que los de sus rivales. 
+
+> Después de analizar las 5 temporadas en las que el Real Madrid ganó 4 veces la Champions League, podemos enfocarnos en la consecución del título más reciente en la temporada 2021-2022. Para ello, se mostrarán unas tablas en las que se podrá ver partido por partido, los resultados del Real Madrid, tanto en su estadio como de visitante.
+>
+>
+> Estas tablas nos permitirán ver cómo el Real Madrid avanzó a través de las diferentes etapas del torneo y cómo se desempeñó en cada partido. Podremos ver sus victorias, empates y derrotas, así como los goles anotados y recibidos. Esto nos dará una idea más clara de cómo el Real Madrid logró ganar el título más reciente de la Champions League.
+>
+>
+> Al comparar estos resultados con los resultados de las temporadas anteriores que analizamos anteriormente, podremos ver si hay similitudes o diferencias en el desempeño del Real Madrid. También podremos ver cómo el equipo ha evolucionado a lo largo de los años y cómo ha logrado mantener su éxito en el torneo.
+>
+>
+> Al visualizar las tablas con los resultados del Real Madrid en la temporada 2021-2022, podremos entender mejor cómo el equipo logró ganar el título más reciente de la Champions League. Esto nos permitirá hacer conexiones con nuestro análisis anterior y ver cómo el éxito del Real Madrid en el torneo ha evolucionado a lo largo de los años.
 
 ## Conclusión: 
 
@@ -311,3 +398,5 @@ Nota: en la parte del análisis más allá de las visualizaciones, resultados o 
 - https://www.kaggle.com/datasets/azminetoushikwasi/ucl-202122-uefa-champions-league
 - https://www.kaggle.com/datasets/elvinagammed/the-champions-league?resource=download
 - https://www.kaggle.com/code/elvinagammed/starter-the-champions-league-89f032cd-3/input
+
+
